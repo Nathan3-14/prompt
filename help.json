@@ -1,2 +1,14 @@
 {
+	"hello": {
+		"description": "Greets the user!",
+		"usage": "hello"
+	},
+	"goodbye": {
+		"description": "Says goodbye to the user!",
+		"usage": "goodbye"
+	},
+	"greet": {
+		"description": "Greets the name inputted",
+		"usage": "greet <name>"
+	}
 }

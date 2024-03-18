@@ -6,3 +6,6 @@ colour="blue"
 [prompt.messages.2]
 text=">> "
 colour="red"
+
+[help]
+path="help.json"

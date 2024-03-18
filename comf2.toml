@@ -1,4 +1,14 @@
 [prompt]
-[prompt.message]
-text="Different prompt!\n  "
+[prompt.messages]
+[prompt.messages.1]
+text="gasf\n"
 colour="red"
+[prompt.messages.2]
+text="fish "
+colour="purple"
+[prompt.messages.3]
+text="$ "
+colour="white"
+
+[help]
+path="help.json"

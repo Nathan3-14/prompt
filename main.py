@@ -1,5 +1,8 @@
 import toml
+import os
 from rich import print
+import json
+from typing import Dict, Any
 import sys
 
 global_config = {"config_path": "prompt.config.toml", "help": False}
@@ -10,8 +13,14 @@ def rich_input(input_message: str):
 	return input("")
 
 
-def display_help(help_dict: dict):
-	pass
+def display_help(help_data: Dict[str, Any] | str):
+	if isinstance(help_data, str):
+		display_help(json.load(open(help_data, "r")))
+		return
+	for command_name, command_help in help_data.items():
+		print(f"[bold]{command_name}[/bold]")
+		print(f"    Description: {command_help['description']}")
+		print(f"    Usage: {command_help['usage']}\n")
 
 
 def parse_prompt():
@@ -33,15 +42,19 @@ def parse_prompt():
 		except IndexError:
 			quit()
 
-
-
+	
+#* User Variables *#
+prompt_data = {
+	"file_addr": "/"
+}
 
 parse_prompt()
 
-if global_config["help"]:
-	print("Help stuff!")
-	quit()
 config = toml.load(global_config["config_path"])
+if global_config["help"]:
+	display_help(config["help"]["path"])
+	quit()
+
 prompt_config = config["prompt"]
 message_config = prompt_config["messages"]
 
@@ -50,4 +63,13 @@ for text, text_data in message_config.items():
 	prompt += f"[{text_data['colour']}]{text_data['text']}[/{text_data['colour']}]"
 
 while True:
-  print(rich_input(prompt))
+	for prompt_var, prompt_var_data in prompt_data.items():
+		prompt_var_replace = "{{@}}".replace("@", prompt_var)
+		prompt = prompt.replace(f"{prompt_var_replace}", prompt_var_data)
+	user_input = rich_input(prompt)
+	if user_input in ["exit", "quit"]:
+		break
+	if user_input == "help":
+		display_help(config["help"]["path"])
+		continue
+
