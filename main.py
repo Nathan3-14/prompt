@@ -1,9 +1,12 @@
+from click import command
 import toml
 import os
 from rich import print
 import json
 from typing import Dict, Any
 import sys
+
+from prompt_commands import list_dir
 
 global_config = {"config_path": "prompt.config.toml", "help": False}
 
@@ -42,6 +45,15 @@ def parse_prompt():
 		except IndexError:
 			quit()
 
+#* Consts *#
+commands = {
+	"hello": lambda x: print("Hello!"),
+	"goodbye": lambda x: print("Goodbye! :("),
+	"greet": lambda name: print(f"Hello {name[0]}!"),
+	"ls": list_dir
+}
+
+
 	
 #* User Variables *#
 prompt_data = {
@@ -72,4 +84,6 @@ while True:
 	if user_input == "help":
 		display_help(config["help"]["path"])
 		continue
+
+	commands[user_input[0]](user_input[1:])
 
