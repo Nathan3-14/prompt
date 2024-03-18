@@ -1,0 +1,4 @@
+[prompt]
+[prompt.message]
+text="Different prompt!\n  "
+colour="red"
