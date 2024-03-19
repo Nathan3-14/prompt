@@ -26,14 +26,14 @@ class Command:
 	def __str__(self) -> str:
 		return self.name
 
-class sick_command(Command):
-	def say_radical(self, args: Tuple[str, int]):
-		for i in range(args[1]):
-			print(f"Yo {args[0]}, that's radical!")
-		
-	def __init__(self):
-		super().__init__("radical", self.say_radical, {"name": str, "number": int})
 
 if __name__ == "__main__":
+	class sick_command(Command):
+		def say_radical(self, args: Tuple[str, int]):
+			for i in range(args[1]):
+				print(f"Yo {args[0]}, that's radical!")
+			
+		def __init__(self):
+			super().__init__("radical", self.say_radical, {"name": str, "number": int})
 	test = sick_command()
 	test.run_command(("me", 3))
