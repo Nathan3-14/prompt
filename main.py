@@ -46,11 +46,12 @@ def parse_prompt():
 
 #* Consts *#
 command_list = [
-	ListDir
+	ListDir(),
 ]
 commands = {
 	command.name: command for command in command_list
 }
+print(commands)
 
 
 	
@@ -78,11 +79,11 @@ while True:
 		prompt_var_replace = "{{@}}".replace("@", prompt_var)
 		prompt = prompt.replace(f"{prompt_var_replace}", prompt_var_data)
 	user_input = rich_input(prompt)
+	user_input_split = user_input.split(" ")
 	if user_input in ["exit", "quit"]:
 		break
 	if user_input == "help":
 		display_help(config["help"]["path"])
 		continue
-
-	commands[user_input[0]](tuple(user_input[1:]))
+	commands[user_input_split[0]].run_command(tuple(user_input_split[1:]))
 

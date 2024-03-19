@@ -1,6 +1,6 @@
 import os
 from rich import print
-from command import Command
+from prompt_src import Command
 from typing import Tuple
 
 
@@ -35,10 +35,5 @@ class ListDir(Command):
 				to_print = f"{to_print_word.ljust(l_just)} {element}"
 			print(to_print)
 	def __init__(self):
-		super().__init__("list_dir", self.list_dir, {"directory": str, "sudo": bool})
+		super().__init__("list_dir", self.list_dir, {"directory": (str, True), "sudo": (bool, False)})
 	
-
-if __name__ == "__main__":
-	commands = {
-		"list_dir": ListDir
-	}
