@@ -5,7 +5,7 @@ import json
 from typing import Dict, Any
 import sys
 
-from prompt_commands import list_dir
+from prompt_commands import ListDir
 
 global_config = {"config_path": "prompt.config.toml", "help": False}
 
@@ -45,11 +45,11 @@ def parse_prompt():
 			quit()
 
 #* Consts *#
+command_list = [
+	ListDir
+]
 commands = {
-	"hello": lambda x: print("Hello!"),
-	"goodbye": lambda x: print("Goodbye! :("),
-	"greet": lambda name: print(f"Hello {name[0]}!"),
-	"ls": list_dir
+	command.name: command for command in command_list
 }
 
 
@@ -84,5 +84,5 @@ while True:
 		display_help(config["help"]["path"])
 		continue
 
-	commands[user_input[0]](user_input[1:])
+	commands[user_input[0]](tuple(user_input[1:]))
 

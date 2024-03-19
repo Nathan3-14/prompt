@@ -36,4 +36,4 @@ if __name__ == "__main__":
 		def __init__(self):
 			super().__init__("radical", self.say_radical, {"name": str, "number": int})
 	test = sick_command()
-	test.run_command(("me", 3))
+	test.run_command(("me"))
