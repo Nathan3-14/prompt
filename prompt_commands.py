@@ -12,8 +12,9 @@ def list_dir(directory: str, sudo: bool=False):
 		affects = []
 		
 		element_split = element.split(".")
-		if element.startswith(".") and not sudo:
+		if element.startswith(".") and not sudo: #? Skip hidden elements if not sudo
 			continue
+		
 		match element_split[-1]:
 			case "py":
 				to_print_word = "python"
@@ -21,10 +22,8 @@ def list_dir(directory: str, sudo: bool=False):
 				to_print_word = "markdown"
 			case _:
 				if element.startswith("."):
-					to_print_word = f"[bold]{element_split[-1].ljust(l_just)}[/bold]"
 					affects.append("blue")
-				else:
-					to_print_word = element_split[-1]
+				to_print_word = element_split[-1]
 		if len(affects) > 0:
 			to_print = f"{to_print_word.ljust(l_just)} [{' '.join(affects)}]{element}[/{' '.join(affects)}]"
 		else:
