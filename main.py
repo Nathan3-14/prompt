@@ -1,4 +1,3 @@
-from click import command
 import toml
 import os
 from rich import print
