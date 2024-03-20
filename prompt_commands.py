@@ -19,6 +19,9 @@ class ListDir(Command):
 			element_split = element.split(".")
 			if element.startswith(".") and not sudo: #? Skip hidden elements if not sudo
 				continue
+
+			if os.path.isdir(element):
+				affects.append("bold")
 			
 			match element_split[-1]:
 				case "py":
@@ -34,6 +37,7 @@ class ListDir(Command):
 			else:
 				to_print = f"{to_print_word.ljust(l_just)} {element}"
 			print(to_print)
+	
 	def __init__(self):
-		super().__init__("list_dir", self.list_dir, {"directory": (str, True), "sudo": (bool, False)})
+		super().__init__("ls", self.list_dir, {"directory": (str, True), "sudo": (bool, False)})
 	
